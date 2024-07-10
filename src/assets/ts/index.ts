@@ -94,9 +94,6 @@ class App {
     this.createHeader()
     this.createPages()
 
-    //webgl experience
-    this.createCanvas()
-
     //page transition
     this.createTransition()
 
@@ -228,6 +225,8 @@ class App {
 
     this.preloader?.once('loaded', async () => {
       await this.preloader?.hideAnimation()
+
+      this.createCanvas()
 
       this.update()
 
