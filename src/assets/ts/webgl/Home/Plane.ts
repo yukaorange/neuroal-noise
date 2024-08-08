@@ -3,6 +3,7 @@ import GSAP from 'gsap'
 import * as THREE from 'three'
 
 import Assets from '@ts/common/singleton/Assets'
+import DebugPane from '@ts/common/singleton/Pane'
 
 import vertexShader from '@ts/webgl/shaders/vertex.glsl'
 import fragmentShader from '@ts/webgl/shaders/fragment.glsl'
@@ -22,16 +23,12 @@ export default class Plane {
   }
 
   private device: string
-
   private geometry: THREE.PlaneGeometry | null = null
-
   private material: THREE.ShaderMaterial | null = null
-
   private mesh: THREE.Mesh | null = null
-
   private assets = Assets.getInstance()
-
   private textures: {} | null = null
+  private pane: DebugPane | null = null
 
   constructor({ sizes, device }: TOption) {
     this.sizes = sizes
@@ -45,6 +42,8 @@ export default class Plane {
     this.createMaterial()
 
     this.createMesh()
+
+    this.createPane()
 
     this.calculateBounds({
       sizes: this.sizes,
@@ -77,6 +76,11 @@ export default class Plane {
       this.geometry as THREE.PlaneGeometry,
       this.material as THREE.ShaderMaterial
     )
+  }
+
+  private createPane() {
+    this.pane = DebugPane.getInstance()
+    console.log(this.pane)
   }
 
   public getMesh() {
@@ -134,5 +138,10 @@ export default class Plane {
 
   updateY(y = 0) {}
 
-  update() {}
+  update() {
+    if ((this.mesh?.material as THREE.ShaderMaterial).uniforms.uAlpha) {
+      const shaderMaterial = this.mesh?.material as THREE.ShaderMaterial
+      shaderMaterial.uniforms.uAlpha.value = this.pane?.getParams().alpha
+    }
+  }
 }

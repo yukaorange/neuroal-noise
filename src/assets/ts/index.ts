@@ -5,6 +5,7 @@ import Logger from '@ts/common/utility/Logger'
 
 import Assets from '@ts/common/singleton/Assets'
 import InteractionState from '@ts/common/singleton/InteractionState'
+import ScrollAnimator from '@ts/common/singleton/ScrollAnimator'
 import MetaManager from '@ts/common/utility/MetaManager'
 import BreakpointsObserver from '@ts/common/utility/BreakpointsObserver'
 import UserAgent from '@ts/common/utility/UserAgent'
@@ -38,6 +39,7 @@ class App {
 
   //singleton
   private interactionState: InteractionState
+  private scrollAnimator: ScrollAnimator
   private assets: Assets
 
   //webgl experience
@@ -78,6 +80,7 @@ class App {
     //singleton
     this.assets = Assets.getInstance()
     this.interactionState = InteractionState.getInstance()
+    this.scrollAnimator = ScrollAnimator.getInstance()
 
     //webgl experience
     this.canvas = null
@@ -245,6 +248,10 @@ class App {
    */
   private update() {
     this.canvas?.update({})
+
+    this.interactionState?.update()
+
+    this.scrollAnimator?.update()
 
     this.frame = window.requestAnimationFrame(this.update.bind(this))
   }

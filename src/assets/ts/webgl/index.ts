@@ -80,8 +80,6 @@ export default class Canvas {
 
     this.createCamera()
 
-    this.createPane()
-
     this.createControls()
 
     this.createHome()
@@ -115,20 +113,6 @@ export default class Canvas {
     this.camera = new THREE.PerspectiveCamera(fov, aspect, near, far)
 
     this.camera.position.z = 5
-  }
-
-  private createPane() {
-    this.pane = new Pane()
-
-    this.paneParams = {
-      alpha: 1
-    }
-
-    this.pane.addBinding(this.paneParams, 'alpha', {
-      min: 0,
-      max: 1,
-      step: 0.01
-    })
   }
 
   private createControls() {
