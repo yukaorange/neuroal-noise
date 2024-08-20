@@ -81,6 +81,7 @@ export default class InteractionState {
 
   private updateMousePosition(event: MouseEvent): void {
     this.mousePosition = { x: event.clientX, y: event.clientY }
+
     this.targetMousePosition = { x: event.clientX, y: event.clientY }
   }
 

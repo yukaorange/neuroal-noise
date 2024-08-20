@@ -80,7 +80,7 @@ export default class Canvas {
 
     this.createCamera()
 
-    this.createControls()
+    // this.createControls()
 
     this.createHome()
   }
